@@ -4,10 +4,14 @@ const dotenv = require('dotenv');
 
 const connectDB =require('./utils/connectDB');
 const encrypt = require('./routes/encrypt');
+const users = require('./routes/users');
 
 const app = express();
 dotenv.config();
 const port= process.env.PORT;
+app.use(express.json());
+
+app.use('/api/user', users);
 
 // app.use('/api', encrypt);
 
