@@ -1,4 +1,5 @@
 const Password = require('../models/passwordModel')
+const {encryptData} = require('../cipher/cipher');
 
 const createPassword = async(req,res)=>{
     try{
@@ -9,15 +10,16 @@ const createPassword = async(req,res)=>{
         }
 
         // Encrypting the password
+        const hashedPassword=encryptData(password);
 
         const pass = await Password.create({
             owner:req.user._id,
             subject,
-            password
+            password:hashedPassword
         });
 
         await pass.save();
-
+        // console.log(pass);
         return res.status(201).json({message:"Password sucessfully saved"});
     }
     catch(error){

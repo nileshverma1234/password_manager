@@ -30,7 +30,7 @@ const decryptData = (data) => {
   let decipher = crypto.createDecipheriv(process.env.ECNRYPTION_METHOD, Buffer.from(process.env.CRYPTO_SECRET_KEY), encryptionIV);
   let decrypted = decipher.update(encryptedText);
   decrypted = Buffer.concat([decrypted, decipher.final()]);
-  return decrypted;
+  return decrypted.toString();
 };
 
 module.exports = {encryptData, decryptData};

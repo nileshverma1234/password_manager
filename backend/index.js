@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser')
 
+dotenv.config();
+
 const connectDB =require('./utils/connectDB');
 const manager = require('./routes/manage');
 const users = require('./routes/users');
