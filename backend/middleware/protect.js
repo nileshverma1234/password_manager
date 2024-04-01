@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
-const protect =async (res, res, next)=>{
+const protect =async (req, res, next)=>{
     try {
-        const token= req.cookies.jwt;
-
+        const token=req.cookies.jwt;
         if(!token){
             return res.status(500).json({error:"No token Available"});
         }
@@ -15,7 +14,7 @@ const protect =async (res, res, next)=>{
             return res.status(401).json({error:"Invald Token"});
         }
 
-        const user = User.findById(verified.userID).select("-password");
+        const user =await User.findById(verify.userID).select("-password");
 
         if(!user){
             return res.status(401).json({error:"User Not Found"});

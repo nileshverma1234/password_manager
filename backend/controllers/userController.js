@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const getandsetToken = require('../utils/getandsetToken')
+const { passwordStrength } = require('check-password-strength');
 
 
 const createUser = async (req,res)=>{
@@ -15,6 +16,12 @@ const createUser = async (req,res)=>{
         if(password != confirmPassword){
             return res.status(401).json({error:"passwords do not match"});
         }
+        
+        // const passStrength = passwordStrength(password).value;
+
+        // if(passStrength=="Weak" || passStrength=="Too weak"){
+        //     return res.status(401).json({error:"Weak Password: use combination of symbol and letters"});
+        // }
 
         const user = await User.findOne({emailId:emailId});
 
@@ -42,6 +49,8 @@ const createUser = async (req,res)=>{
         return res.status(400).json({error:error});
     }
 };
+
+
 
 const loginUser =async (req,res)=>{
     try {
